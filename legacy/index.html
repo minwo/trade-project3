@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F1012">
+<title>지수 · 투자</title>
+<style>
+  :root {
+    --bg:        #0F1012;
+    --bg-elev:   #17181C;
+    --bg-elev2:  #1E2026;
+    --line:      #26282F;
+    --line-soft: #1D1F25;
+    --t1:        #EDEFF3;
+    --t2:        #9BA1AC;
+    --t3:        #656B76;
+    --up:        #F04452;
+    --down:      #3182F6;
+    --flat:      #9BA1AC;
+    --accent:    #3182F6;
+    --ma5:       #FFB020;
+    --ma20:      #7C8DFF;
+    --ma60:      #4CC9A0;
+    --ma120:     #E27DFF;
+    --radius:    16px;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--t1);
+    font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo",
+                 "Malgun Gothic", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
+  }
+
+  body { font-size: 14px; line-height: 1.45; }
+
+  .app {
+    max-width: 460px;
+    margin: 0 auto;
+    min-height: 100dvh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .up   { color: var(--up); }
+  .down { color: var(--down); }
+  .flat { color: var(--flat); }
+
+  .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+  /* ── 상단바 ─────────────────────────────────────── */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px 8px;
+    position: sticky; top: 0; z-index: 20;
+    background: linear-gradient(var(--bg) 70%, rgba(15,16,18,0));
+  }
+  .brand { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600; color: var(--t2);
+    background: var(--bg-elev); border: 1px solid var(--line);
+    padding: 5px 10px; border-radius: 999px;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--up); }
+  .dot.live { animation: pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
+
+  /* ── 요약 카드 ──────────────────────────────────── */
+  .summary {
+    margin: 6px 16px 18px; padding: 16px 18px;
+    background: var(--bg-elev); border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+  }
+  .summary .cap { font-size: 12px; color: var(--t2); margin-bottom: 6px; }
+  .summary .line { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
+  .summary .sub { margin-top: 10px; font-size: 12px; color: var(--t3); }
+
+  /* ── 세그먼트 필터 ─────────────────────────────── */
+  .seg { display: flex; gap: 8px; padding: 0 16px 14px; overflow-x: auto; scrollbar-width: none; }
+  .seg::-webkit-scrollbar { display: none; }
+  .seg button {
+    flex: 0 0 auto; border: 1px solid var(--line); background: transparent;
+    color: var(--t2); font-size: 13px; font-weight: 600; font-family: inherit;
+    padding: 7px 14px; border-radius: 999px; cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .seg button.on { background: var(--t1); border-color: var(--t1); color: #0F1012; }
+
+  /* ── 지수 카드 그리드 ───────────────────────────── */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px 24px; }
+  .card {
+    background: var(--bg-elev); border: 1px solid var(--line-soft);
+    border-radius: var(--radius); padding: 14px 14px 8px;
+    cursor: pointer; text-align: left; font-family: inherit; color: inherit;
+    transition: transform .12s ease, background .15s;
+  }
+  .card:active { transform: scale(.975); background: var(--bg-elev2); }
+  .card .nm { font-size: 13px; font-weight: 700; letter-spacing: -0.2px; }
+  .card .tag { font-size: 10.5px; color: var(--t3); margin-top: 2px; }
+  .card .val { font-size: 18px; font-weight: 800; margin-top: 10px; letter-spacing: -0.5px; }
+  .card .chg { font-size: 12px; font-weight: 600; margin-top: 2px; }
+  .card canvas { display: block; width: 100%; height: 40px; margin-top: 6px; }
+
+  /* ── 등락률 비교 ────────────────────────────────── */
+  .sec-title { padding: 0 20px 10px; font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
+  .cmp { padding: 0 16px 28px; }
+  .cmp-row { display: flex; align-items: center; gap: 10px; padding: 9px 4px; }
+  .cmp-row .nm { width: 74px; font-size: 12.5px; color: var(--t2); flex: 0 0 auto; }
+  .cmp-bar { flex: 1; height: 8px; background: var(--bg-elev); border-radius: 4px; position: relative; }
+  .cmp-bar i { position: absolute; top: 0; height: 100%; border-radius: 4px; display: block; }
+  .cmp-bar .zero { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--line); left: 50%; }
+  .cmp-row .pc { width: 58px; text-align: right; font-size: 12.5px; font-weight: 700; flex: 0 0 auto; }
+
+  .foot { padding: 0 20px 40px; font-size: 11px; color: var(--t3); line-height: 1.6; }
+
+  /* ── 상세 화면 ──────────────────────────────────── */
+  .detail {
+    position: fixed; inset: 0; z-index: 40;
+    max-width: 460px; margin: 0 auto;
+    background: var(--bg);
+    transform: translateX(100%);
+    transition: transform .28s cubic-bezier(.22,.61,.36,1);
+    overflow-y: auto; overscroll-behavior: contain;
+    visibility: hidden;
+  }
+  .detail.open { transform: translateX(0); visibility: visible; }
+
+  .dtop {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; position: sticky; top: 0; z-index: 10;
+    background: rgba(15,16,18,.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .iconbtn {
+    width: 34px; height: 34px; display: grid; place-items: center;
+    background: transparent; border: 0; color: var(--t1); cursor: pointer;
+    border-radius: 10px; font-size: 24px; line-height: 1; font-family: inherit;
+  }
+  .iconbtn:active { background: var(--bg-elev2); }
+  .dtop .tt { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
+
+  .dhead { padding: 18px 20px 10px; }
+  .dhead .nm { font-size: 13px; color: var(--t2); }
+  .dhead .val { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-top: 4px; }
+  .dhead .chg { font-size: 13.5px; font-weight: 700; margin-top: 4px; }
+
+  .toolbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 6px; gap: 8px; }
+  .tabs { display: flex; gap: 4px; background: var(--bg-elev); padding: 3px; border-radius: 10px; }
+  .tabs button {
+    border: 0; background: transparent; color: var(--t2); font-family: inherit;
+    font-size: 12.5px; font-weight: 700; padding: 6px 12px; border-radius: 8px; cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .tabs button.on { background: var(--bg-elev2); color: var(--t1); }
+
+  .ohlc {
+    display: flex; flex-wrap: wrap; gap: 3px 12px;
+    padding: 8px 20px 4px; font-size: 11.5px; color: var(--t3);
+    min-height: 30px;
+  }
+  .ohlc b { font-weight: 700; margin-left: 3px; }
+
+  .malegend { display: flex; gap: 6px; padding: 2px 16px 6px; flex-wrap: wrap; }
+  .malegend button {
+    border: 1px solid var(--line); background: transparent; font-family: inherit;
+    font-size: 11px; font-weight: 700; padding: 4px 9px;
+    border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+    color: var(--t3);
+  }
+  .malegend button.on { color: var(--maColor, var(--t1)); border-color: currentColor; }
+  .malegend button .sw { width: 9px; height: 2px; border-radius: 2px; background: currentColor; opacity: .4; }
+  .malegend button.on .sw { opacity: 1; }
+
+  .chartwrap { position: relative; padding: 0 6px; touch-action: none; }
+  #chart { display: block; width: 100%; height: 340px; }
+  .hint {
+    position: absolute; left: 16px; bottom: 6px; font-size: 10.5px; color: var(--t3);
+    pointer-events: none; opacity: .7;
+  }
+
+  .ranges { display: flex; gap: 6px; padding: 12px 16px 4px; }
+  .ranges button {
+    flex: 1; border: 0; background: var(--bg-elev); color: var(--t2); font-family: inherit;
+    font-size: 12px; font-weight: 700; padding: 8px 0; border-radius: 9px; cursor: pointer;
+  }
+  .ranges button.on { background: var(--bg-elev2); color: var(--t1); }
+
+  .stats { margin: 18px 16px 0; background: var(--bg-elev); border-radius: var(--radius); padding: 6px 18px; }
+  .stat { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; font-size: 13px; }
+  .stat + .stat { border-top: 1px solid var(--line-soft); }
+  .stat .k { color: var(--t2); }
+  .stat .v { font-weight: 700; }
+
+  .dfoot { padding: 18px 20px 48px; font-size: 11px; color: var(--t3); line-height: 1.6; }
+
+  @media (max-width: 359px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">지수</div>
+    <div class="badge"><span class="dot live"></span><span id="clock" class="num">--:--:--</span> · 모의 시세</div>
+  </header>
+
+  <div class="summary">
+    <div class="cap">오늘의 시장</div>
+    <div class="line" id="sumLine">불러오는 중…</div>
+    <div class="sub" id="sumSub"></div>
+  </div>
+
+  <nav class="seg" id="seg">
+    <button class="on" data-cat="all">전체</button>
+    <button data-cat="overseas">해외</button>
+    <button data-cat="domestic">국내</button>
+    <button data-cat="crypto">코인</button>
+  </nav>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="sec-title">오늘의 등락률</div>
+  <div class="cmp" id="cmp"></div>
+
+  <p class="foot">
+    표시되는 시세는 데모용으로 생성한 <b>모의 데이터</b>입니다. 실제 투자 판단에 사용할 수 없습니다.
+  </p>
+</div>
+
+<!-- 상세 화면 -->
+<section class="detail" id="detail" aria-hidden="true">
+  <div class="dtop">
+    <button class="iconbtn" id="back" aria-label="뒤로">‹</button>
+    <div class="tt" id="dTitle">–</div>
+  </div>
+
+  <div class="dhead">
+    <div class="nm" id="dSub">–</div>
+    <div class="val num" id="dVal">–</div>
+    <div class="chg num" id="dChg">–</div>
+  </div>
+
+  <div class="toolbar">
+    <div class="tabs" id="tfTabs">
+      <button data-tf="D" class="on">일봉</button>
+      <button data-tf="W">주봉</button>
+      <button data-tf="M">월봉</button>
+    </div>
+    <div class="tabs" id="typeTabs">
+      <button data-type="candle" class="on">캔들</button>
+      <button data-type="line">라인</button>
+    </div>
+  </div>
+
+  <div class="ohlc num" id="ohlc"></div>
+  <div class="malegend" id="maLegend"></div>
+
+  <div class="chartwrap">
+    <canvas id="chart"></canvas>
+    <div class="hint">드래그로 이동 · 휠 / 두 손가락으로 확대</div>
+  </div>
+
+  <div class="ranges" id="ranges"></div>
+
+  <div class="stats" id="stats"></div>
+
+  <p class="dfoot">
+    이동평균선은 선택한 봉 기준으로 계산됩니다. (예: 주봉 MA20 = 최근 20주 종가 평균)<br>
+    모의 데이터 기반 데모 화면입니다.
+  </p>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
