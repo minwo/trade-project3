@@ -210,8 +210,9 @@ export function QuoteScreen({ sym, bars: initialBars, source }: Props) {
 
       <div className={styles.chartWrap}>
         <canvas ref={canvasRef} className={styles.chart} />
-        <span className={styles.hint}>드래그로 시세 확인 · 휠 / 두 손가락으로 확대</span>
       </div>
+
+      <p className={styles.hint}>드래그로 시세 확인 · 휠 / 두 손가락으로 확대</p>
 
       <div className={styles.ranges}>
         {RANGES[tf].map((r, i) => (
