@@ -6,13 +6,13 @@ import { SYMBOLS } from '@/lib/symbols';
 export const revalidate = 300;
 
 export default async function HomePage() {
-  const items: HomeItem[] = await Promise.all(
-    SYMBOLS.map(async (sym) => {
-      const { source, bars } = await loadDaily(sym);
-      // 홈에서는 스파크라인·등락률만 쓰므로 최근 90봉만 내려보낸다.
-      return { id: sym.id, source, bars: bars.slice(-90) };
-    }),
-  );
+    const items: HomeItem[] = await Promise.all(
+        SYMBOLS.map(async (sym) => {
+            const { source, bars } = await loadDaily(sym);
+            // 홈에서는 스파크라인·등락률만 쓰므로 최근 90봉만 내려보낸다.
+            return { id: sym.id, source, bars: bars.slice(-90) };
+        }),
+    );
 
-  return <HomeScreen items={items} />;
+    return <HomeScreen items={items} />;
 }

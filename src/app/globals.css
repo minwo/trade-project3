@@ -1,93 +1,93 @@
 /* 토스 증권 다크 테마를 벤치마킹한 디자인 토큰 */
 :root {
-  --bg: #101114;
-  --surface: #17181D;
-  --surface-2: #1E2026;
-  --surface-press: #232630;
-  --line: #26282F;
-  --line-soft: #1D1F25;
+    --bg: #101114;
+    --surface: #17181D;
+    --surface-2: #1E2026;
+    --surface-press: #232630;
+    --line: #26282F;
+    --line-soft: #1D1F25;
 
-  --text: #EDEFF3;
-  --text-sub: #9BA1AC;
-  --text-dim: #6B7280;
+    --text: #EDEFF3;
+    --text-sub: #9BA1AC;
+    --text-dim: #6B7280;
 
-  --blue: #3182F6;
-  --up: #F04452;
-  --down: #3485FA;
+    --blue: #3182F6;
+    --up: #F04452;
+    --down: #3485FA;
 
-  --radius-lg: 20px;
-  --radius: 16px;
-  --radius-sm: 10px;
+    --radius-lg: 20px;
+    --radius: 16px;
+    --radius-sm: 10px;
 
-  --app-max: 480px;
-  --tabbar-h: 58px;
+    --app-max: 480px;
+    --tabbar-h: 58px;
 
-  color-scheme: dark;
+    color-scheme: dark;
 }
 
 * {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
-    'Malgun Gothic', 'Segoe UI', sans-serif;
-  font-size: 14px;
-  line-height: 1.45;
-  -webkit-font-smoothing: antialiased;
-  overscroll-behavior-y: none;
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+        'Malgun Gothic', 'Segoe UI', sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 button {
-  font-family: inherit;
-  cursor: pointer;
+    font-family: inherit;
+    cursor: pointer;
 }
 
 .num {
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum';
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
 }
 
 .up {
-  color: var(--up);
+    color: var(--up);
 }
 .down {
-  color: var(--down);
+    color: var(--down);
 }
 .flat {
-  color: var(--text-sub);
+    color: var(--text-sub);
 }
 
 /* 앱 셸 — 모바일 폭 고정, 하단 탭바 자리 확보 */
 .shell {
-  max-width: var(--app-max);
-  margin: 0 auto;
-  min-height: 100dvh;
-  padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px) + 12px);
-  position: relative;
-  overflow-x: hidden;
+    max-width: var(--app-max);
+    margin: 0 auto;
+    min-height: 100dvh;
+    padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px) + 12px);
+    position: relative;
+    overflow-x: hidden;
 }
 
 .sectionTitle {
-  padding: 20px 20px 10px;
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.4px;
+    padding: 20px 20px 10px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
 }
 
 .muted {
-  color: var(--text-dim);
-  font-size: 11.5px;
-  line-height: 1.65;
+    color: var(--text-dim);
+    font-size: 11.5px;
+    line-height: 1.65;
 }

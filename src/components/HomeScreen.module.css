@@ -1,234 +1,234 @@
 .topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px 10px;
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: linear-gradient(var(--bg) 72%, rgba(16, 17, 20, 0));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: linear-gradient(var(--bg) 72%, rgba(16, 17, 20, 0));
 }
 
 .brand {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -0.6px;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
 }
 
 .badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-sub);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  padding: 5px 11px;
-  border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-sub);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 5px 11px;
+    border-radius: 999px;
 }
 
 .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--text-dim);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-dim);
 }
 .dotLive {
-  background: var(--up);
-  animation: pulse 1.8s ease-in-out infinite;
+    background: var(--up);
+    animation: pulse 1.8s ease-in-out infinite;
 }
 @keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.3;
-  }
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
 }
 
 .summary {
-  margin: 4px 16px 18px;
-  padding: 16px 18px;
-  background: var(--surface);
-  border-radius: var(--radius);
+    margin: 4px 16px 18px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border-radius: var(--radius);
 }
 .summaryCap {
-  margin: 0 0 6px;
-  font-size: 12px;
-  color: var(--text-sub);
+    margin: 0 0 6px;
+    font-size: 12px;
+    color: var(--text-sub);
 }
 .summaryLine {
-  margin: 0;
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
 }
 .divider {
-  color: var(--text-dim);
-  margin: 0 7px;
-  font-weight: 500;
+    color: var(--text-dim);
+    margin: 0 7px;
+    font-weight: 500;
 }
 .summarySub {
-  margin: 10px 0 0;
-  font-size: 12px;
-  color: var(--text-dim);
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: var(--text-dim);
 }
 
 /* 가로 스크롤 카드 */
 .cardRow {
-  display: flex;
-  gap: 10px;
-  padding: 0 16px 6px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
+    display: flex;
+    gap: 10px;
+    padding: 0 16px 6px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
 }
 .cardRow::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .card {
-  flex: 0 0 auto;
-  width: 150px;
-  scroll-snap-align: start;
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 14px 14px 10px;
-  transition: transform 0.12s ease, background 0.15s;
+    flex: 0 0 auto;
+    width: 150px;
+    scroll-snap-align: start;
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 14px 14px 10px;
+    transition: transform 0.12s ease, background 0.15s;
 }
 .card:active {
-  transform: scale(0.975);
-  background: var(--surface-2);
+    transform: scale(0.975);
+    background: var(--surface-2);
 }
 .cardName {
-  margin: 0;
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--text-sub);
+    margin: 0;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text-sub);
 }
 .cardValue {
-  margin: 8px 0 0;
-  font-size: 19px;
-  font-weight: 800;
-  letter-spacing: -0.6px;
+    margin: 8px 0 0;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
 }
 .cardChange {
-  margin: 2px 0 0;
-  font-size: 11.5px;
-  font-weight: 600;
+    margin: 2px 0 0;
+    font-size: 11.5px;
+    font-weight: 600;
 }
 .spark {
-  display: block;
-  width: 100%;
-  height: 38px;
-  margin-top: 8px;
+    display: block;
+    width: 100%;
+    height: 38px;
+    margin-top: 8px;
 }
 
 /* 필터 */
 .seg {
-  display: flex;
-  gap: 8px;
-  padding: 18px 16px 6px;
-  overflow-x: auto;
-  scrollbar-width: none;
+    display: flex;
+    gap: 8px;
+    padding: 18px 16px 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
 .seg::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 .segBtn {
-  flex: 0 0 auto;
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--text-sub);
-  font-size: 13px;
-  font-weight: 600;
-  padding: 7px 15px;
-  border-radius: 999px;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+    flex: 0 0 auto;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--text-sub);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 15px;
+    border-radius: 999px;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 .segOn {
-  background: var(--text);
-  border-color: var(--text);
-  color: var(--bg);
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--bg);
 }
 
 /* 리스트 */
 .list {
-  list-style: none;
-  margin: 6px 0 0;
-  padding: 0 8px;
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0 8px;
 }
 
 .row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border-radius: var(--radius-sm);
-  transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    transition: background 0.15s;
 }
 .row:active {
-  background: var(--surface);
+    background: var(--surface);
 }
 
 .rank {
-  width: 14px;
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--text-dim);
-  text-align: center;
+    width: 14px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-align: center;
 }
 
 .avatar {
-  width: 38px;
-  height: 38px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: var(--surface-2);
-  color: var(--text-sub);
-  display: grid;
-  place-items: center;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: -0.3px;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--surface-2);
+    color: var(--text-sub);
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
 }
 
 .rowMain {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
 }
 .rowName {
-  font-size: 14.5px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
+    font-size: 14.5px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
 }
 .rowTag {
-  font-size: 11.5px;
-  color: var(--text-dim);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    font-size: 11.5px;
+    color: var(--text-dim);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .rowRight {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 .rowPrice {
-  font-size: 14.5px;
-  font-weight: 700;
+    font-size: 14.5px;
+    font-weight: 700;
 }
 .rowPct {
-  font-size: 12px;
-  font-weight: 600;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .foot {
-  padding: 24px 20px 8px;
+    padding: 24px 20px 8px;
 }
